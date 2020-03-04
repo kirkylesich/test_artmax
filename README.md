@@ -7,5 +7,4 @@
 
 ### Urls
 
-- `product_sets/` - List of product sets
-- `products/` - List of products
+- `products_and_sets/` - List of product and sets
