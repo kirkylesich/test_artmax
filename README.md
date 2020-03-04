@@ -1,4 +1,4 @@
-###QuickStart
+### QuickStart
 `pip3 install -r requirements.txt` to install all dependieces 
 
 `python3 manage.py runserver` to start
