@@ -1,3 +1,5 @@
+from abc import ABC
+
 from rest_framework import serializers
 from main.models import ProductSet, Product
 
@@ -14,3 +16,9 @@ class ProductSerializer(serializers.ModelSerializer):
         model = Product
         fields = '__all__'
         depth = 1
+
+
+class ProductAndSetsSerializer(serializers.Serializer):
+    products = ProductSerializer(many=True)
+    product_sets = ProductSetSerializer(many=True)
+
