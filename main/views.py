@@ -3,23 +3,15 @@ from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from main.models import ProductSet, Product
-from main.serializers import ProductSetSerializer, ProductSerializer, ProductAndSetsSerializer
+from main.serializers import ProductSetSerializer, ProductSerializer
 
 
 class ProductAndSetsListVIew(APIView):
+    product_list = ProductSerializer(Product.get_product_list(), many=True)
+    product_sets_list = ProductSetSerializer(ProductSet.get_product_sets_list(), many=True)
 
     def get(self, request, *args, **kwargs):
-        product_list = ProductSerializer(self.get_product_list(), many=True)
-        product_sets_list = ProductSetSerializer(self.get_product_sets_list(), many=True)
-        data = {'products': product_list.data, 'product_sets': product_sets_list.data}
-        serializer = ProductAndSetsSerializer(data=data)
-        products_and_sets = {'products': product_list.data + product_sets_list.data}
-        return Response(products_and_sets)
+        return Response(self.get_products_and_sets())
 
-    def get_product_list(self):
-        queryset = Product.objects.filter(bottom__isnull=True, top__isnull=True)
-        return queryset
-
-    def get_product_sets_list(self):
-        queryset = ProductSet.objects.all()
-        return queryset
+    def get_products_and_sets(self):
+        return {'products_and_sets': self.product_list.data + self.product_sets_list.data}
