@@ -13,7 +13,8 @@ class ProductAndSetsListVIew(APIView):
         product_sets_list = ProductSetSerializer(self.get_product_sets_list(), many=True)
         data = {'products': product_list.data, 'product_sets': product_sets_list.data}
         serializer = ProductAndSetsSerializer(data=data)
-        return Response(serializer.initial_data)
+        products_and_sets = {'products': product_list.data + product_sets_list.data}
+        return Response(products_and_sets)
 
     def get_product_list(self):
         queryset = Product.objects.filter(bottom__isnull=True, top__isnull=True)
@@ -22,4 +23,3 @@ class ProductAndSetsListVIew(APIView):
     def get_product_sets_list(self):
         queryset = ProductSet.objects.all()
         return queryset
-

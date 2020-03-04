@@ -8,14 +8,14 @@ class ProductSetSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductSet
         fields = '__all__'
-        depth = 1
+        depth = 2
 
 
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = '__all__'
-        depth = 1
+        depth = 2
 
 
 class ProductAndSetsSerializer(serializers.Serializer):
